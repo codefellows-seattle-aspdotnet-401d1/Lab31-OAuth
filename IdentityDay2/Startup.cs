@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using System.IO;
 
 namespace IdentityDay2
 {
@@ -22,9 +23,18 @@ namespace IdentityDay2
     {
         string _testSecret = null;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder();
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+                builder.SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json");
+            }
+
+            Configuration = builder.Build();
         }
 
         //Configuration setup for dependancy injection
@@ -35,6 +45,7 @@ namespace IdentityDay2
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Require https
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
@@ -48,7 +59,6 @@ namespace IdentityDay2
                 options.AddPolicy("Admin Only", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("Medical", policy => policy.Requirements.Add(new MedicalOfficerRequirement()));
             });
-
 
             services.AddSingleton<IAuthorizationHandler, IsMedicalOfficer>();
             services.AddMvc();
@@ -65,6 +75,13 @@ namespace IdentityDay2
             services.AddIdentity<CrewMember, IdentityRole>()
                    .AddEntityFrameworkStores<AppDbContext>()
                    .AddDefaultTokenProviders();
+
+            //Enable Login w/Facebook
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
