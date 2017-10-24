@@ -1,0 +1,14 @@
+﻿@model List<IdentityDay2.Models.CMS>
+
+@{
+    Layout = "_Layout";
+}
+<h1>Announcements</h1>
+@foreach (var item in Model)
+{
+    @if (item.IsAuthorized)
+    {
+        <p><strong>@item.Channel:</strong> @item.Content</p>
+    }
+
+}
