@@ -1,0 +1,31 @@
+﻿@model List<lab28_miya.Models.CPS>
+
+<head>
+    <link rel="stylesheet" href="~/StyleSheet.css" />
+</head>
+
+<hgroup>
+    <h2>Welcome to the Republic of Gilead's CPS!</h2>
+    <h5>May the Lord Open.</h5>
+</hgroup>
+
+
+<body>
+    <img src="~/Images/hands circling globe.jpg" />
+    @*<a asp-controller="Account" asp-action="Login">Click here for CPS.</a>*@
+
+    @{
+        Layout = "_Layout";
+    }
+
+    @foreach (var item in Model)
+    {
+        @if (item.HasCompassion)
+        {
+            <h1> @item.Name</h1>
+            <p>@item.Region</p>
+
+        }
+
+    }
+</body>

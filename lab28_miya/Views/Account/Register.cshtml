@@ -1,0 +1,41 @@
+﻿@model lab28_miya.Models.RegisterViewModel
+
+<form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+
+    <div asp-validation-summary="All"></div>
+    <h3>Welcome, good Samaritan.</h3>
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    @*this is used to access any data validation and tell the user if there is an error*@
+    <span asp-validation-for="Email"></span>
+    <br />
+
+    <label asp-for="StartDate"></label>
+    <input asp-for="StartDate" />
+    <span asp-validation-for="StartDate"></span>
+    <br />
+
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" />
+    <span asp-validation-for="FirstName"></span>
+    <br />
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" />
+    <span asp-validation-for="LastName"></span>
+    <br />
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+    <br />
+
+    <label asp-for="ConfirmPassword"></label>
+    <input asp-for="ConfirmPassword" />
+    <span asp-validation-for="ConfirmPassword"></span>
+    <br />
+
+    <button type="submit">Register</button>
+
+</form>
