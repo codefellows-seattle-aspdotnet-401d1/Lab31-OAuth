@@ -1,5 +1,8 @@
 ﻿using IdentityDay2.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -115,6 +118,19 @@ namespace IdentityDay2.Controllers
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var userIdentity = new ClaimsIdentity("Registration");
+
+                    var userPrinciple = new ClaimsPrincipal(userIdentity);
+                    await HttpContext.SignInAsync(
+                        "MyCookieLogin", userPrinciple,
+                            new AuthenticationProperties
+                            {
+                                ExpiresUtc = DateTime.UtcNow.AddMinutes(30),
+                                IsPersistent = false,
+                                AllowRefresh = false
+
+                            });
+
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -124,6 +140,8 @@ namespace IdentityDay2.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnURL = null)
         {
             var redirectURL = Url.Action(nameof(ExternalLoginCallback), "CrewAuth", new { returnURL });
@@ -131,6 +149,7 @@ namespace IdentityDay2.Controllers
             return Challenge(properties, provider);
         }
 
+        [HttpGet]
         public async Task<IActionResult> ExternalLoginCallback(string returnURL = null, string remoteError = null)
         {
             if (remoteError != null)
@@ -151,6 +170,8 @@ namespace IdentityDay2.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+
+
             if (result.IsLockedOut)
             {
                 return RedirectToAction("Index", "Home");
@@ -167,6 +188,8 @@ namespace IdentityDay2.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginModel elm)
         {
             if (ModelState.IsValid)

@@ -21,24 +21,30 @@ namespace IdentityDay2
 {
     public class Startup
     {
-        string _testSecret = null;
+        //string _testSecret = null;
 
-        public Startup(IHostingEnvironment env)
-        {
-            var builder = new ConfigurationBuilder();
+        //public Startup(IHostingEnvironment env)
+        //{
+        //    var builder = new ConfigurationBuilder();
 
-            if (env.IsDevelopment())
-            {
-                builder.AddUserSecrets<Startup>();
-                builder.SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json");
-            }
+        //    if (env.IsDevelopment())
+        //    {
+        //        builder.AddUserSecrets<Startup>();
+        //        builder.SetBasePath(Directory.GetCurrentDirectory())
+        //    .AddJsonFile("appsettings.json");
+        //    }
 
-            Configuration = builder.Build();
-        }
+        //    Configuration = builder.Build();
+        //}
+
 
         //Configuration setup for dependancy injection
         public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -51,7 +57,11 @@ namespace IdentityDay2
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
-            _testSecret = Configuration["MySecret"];
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie("MyCookieLogin", options =>
+                options.AccessDeniedPath = new PathString("/Account/Forbidden/"));
+
 
             //Enable Admin-Only policy
             services.AddAuthorization(options =>
@@ -60,7 +70,15 @@ namespace IdentityDay2
                 options.AddPolicy("Medical", policy => policy.Requirements.Add(new MedicalOfficerRequirement()));
             });
 
+            //Enable Login w/Facebook
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
             services.AddSingleton<IAuthorizationHandler, IsMedicalOfficer>();
+
             services.AddMvc();
 
             //Regular Db context
@@ -76,21 +94,12 @@ namespace IdentityDay2
                    .AddEntityFrameworkStores<AppDbContext>()
                    .AddDefaultTokenProviders();
 
-            //Enable Login w/Facebook
-            services.AddAuthentication().AddFacebook(facebookOptions =>
-            {
-                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            var options = new RewriteOptions()
-                          .AddRedirectToHttps();
-
-            app.UseRewriter(options);
+            
             //Enable user profiles & authorization via the Identity API
             app.UseAuthentication();
             if (env.IsDevelopment())
@@ -100,11 +109,10 @@ namespace IdentityDay2
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
-            var result = string.IsNullOrEmpty(_testSecret) ? "Null" : "Not Null";
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync($"Secret is {result}");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }
