@@ -1,0 +1,35 @@
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @if (!User.Identities.Any(u => u.IsAuthenticated))
+        {
+            <span>Hello User. Please Login or Register to make Announcements.</span>
+            <p>
+                <a asp-controller="CrewAuth" asp-action="Register">Register</a>
+            </p>
+            <p>
+                <a asp-controller="CrewAuth" asp-action="Login">Login</a>
+            </p>
+
+        }
+        else
+        {
+            <span>
+                Hello @User.Identities.First(u => u.IsAuthenticated &&
+                  u.HasClaim(c => c.Type == ClaimTypes.Name)).FindFirst(ClaimTypes.Name).Value
+            </span>
+
+        }
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
