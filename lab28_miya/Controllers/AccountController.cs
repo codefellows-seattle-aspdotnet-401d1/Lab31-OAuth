@@ -42,13 +42,13 @@ namespace lab28_miya.Controllers
 
                 if(result.Succeeded)
                 {
-                    //const string issuer = "www.miya.com";
+                    const string issuer = "www.miya.com";
 
                     //creating a list where I can add claims
                     List<Claim> myClaims = new List<Claim>();
 
                     //this is a claim for the user's name
-                    Claim claim1 = new Claim(ClaimTypes.Name, rvm.FirstName + " " + rvm.LastName, ClaimValueTypes.String);
+                    Claim claim1 = new Claim(ClaimTypes.Name, rvm.FirstName + " " + rvm.LastName, ClaimValueTypes.String, issuer);
                     myClaims.Add(claim1);
 
                     //this is a claim for the user's role
@@ -84,39 +84,6 @@ namespace lab28_miya.Controllers
                 var user = await _userManager.FindByEmailAsync(lvm.Email);
 
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    const string issuer = "www.miya.com";
-
-                    //this will create a list for me to add my claims
-                    List<Claim> myClaims = new List<Claim>();
-
-                    Claim claim1 = new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName, ClaimValueTypes.String, issuer);
-                    myClaims.Add(claim1);
-
-                    Claim claim2 = new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String);
-                    myClaims.Add(claim2);
-
-                    Claim StartDate = new Claim(ClaimTypes.UserData, user.StartDate.Date.ToString(), ClaimValueTypes.Date);
-                    myClaims.Add(StartDate);
-
-                    var userIdentity = new ClaimsIdentity("Registration");
-                    userIdentity.AddClaims(myClaims);
-
-                    var userPrincipal = new ClaimsPrincipal(userIdentity);
-
-                    //user.AddIdentity(userIdentity);
-
-                    await HttpContext.SignInAsync(
-                        "MyCookieLogin", userPrincipal, new AuthenticationProperties
-                        {
-                            ExpiresUtc = DateTime.UtcNow.AddMinutes(30),
-                            IsPersistent = false,
-                            AllowRefresh = false
-                        });
-                    return RedirectToAction("Index", "Home");
-                }
             }
             return View();
         }

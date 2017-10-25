@@ -11,5 +11,6 @@
     <WebStackScaffolding_DbContextTypeFullName>lab28_miya.Models.lab28_miyaContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
+    <NameOfLastUsedPublishProfile>OAuthLab31 - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
