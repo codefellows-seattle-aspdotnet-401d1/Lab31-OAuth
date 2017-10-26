@@ -56,10 +56,14 @@ namespace lab28_miya
             }
             );
 
-            services.AddAuthentication().AddFacebook(facebook =>
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+            services.AddAuthentication().AddFacebook(facebookOptions =>
             {
-                facebook.ClientId = Configuration["MyFacebookAppID"];
-                facebook.ClientSecret = Configuration["5c199174958579481067b406ff15c229"];
+                facebookOptions.AppId = Configuration["MyFacebookAppID"];
+                facebookOptions.AppSecret = Configuration["5c199174958579481067b406ff15c229"];
             }
             );
 
@@ -72,10 +76,6 @@ namespace lab28_miya
 
                 services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("lab28_miyaContext")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

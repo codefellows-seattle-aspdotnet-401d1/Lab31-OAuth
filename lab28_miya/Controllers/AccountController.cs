@@ -165,7 +165,8 @@ namespace lab28_miya.Controllers
         public IActionResult Logout()
         {
             _signInManager.SignOutAsync();
-            return View();
+            //return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

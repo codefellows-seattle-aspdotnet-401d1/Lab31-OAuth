@@ -31,3 +31,4 @@ C:\Users\shami\Source\Repos\Lab31-OAuth\lab28_miya\obj\Debug\netcoreapp2.0\lab28
 C:\Users\shami\Source\Repos\Lab31-OAuth\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.AssemblyInfo.cs
 C:\Users\shami\Source\Repos\Lab31-OAuth\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.dll
 C:\Users\shami\Source\Repos\Lab31-OAuth\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.pdb
+C:\Users\shami\source\repos\Lab31-OAuth\lab28_miya\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

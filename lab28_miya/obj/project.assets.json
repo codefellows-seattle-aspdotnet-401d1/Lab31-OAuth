@@ -13110,6 +13110,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.0",
+      "Microsoft.AspNetCore.Authentication.Facebook >= 2.0.0",
       "Microsoft.AspNetCore.Authentication.Twitter >= 2.0.0",
       "Microsoft.AspNetCore.Mvc >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.0",
@@ -13124,12 +13125,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\shami\\source\\repos\\Lab31-OAuth\\lab28_miya\\lab28_miya.csproj",
+      "projectUniqueName": "C:\\Users\\shami\\Source\\Repos\\Lab31-OAuth\\lab28_miya\\lab28_miya.csproj",
       "projectName": "lab28_miya",
-      "projectPath": "C:\\Users\\shami\\source\\repos\\Lab31-OAuth\\lab28_miya\\lab28_miya.csproj",
+      "projectPath": "C:\\Users\\shami\\Source\\Repos\\Lab31-OAuth\\lab28_miya\\lab28_miya.csproj",
       "packagesPath": "C:\\Users\\shami\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shami\\source\\repos\\Lab31-OAuth\\lab28_miya\\obj\\",
+      "outputPath": "C:\\Users\\shami\\Source\\Repos\\Lab31-OAuth\\lab28_miya\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13159,20 +13163,7 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "2.0.0",
-            "autoReferenced": true
-          },
-          "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.AspNetCore.Authentication.Twitter": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.AspNetCore.Mvc": {
+          "Microsoft.AspNetCore.Authentication.Facebook": {
             "target": "Package",
             "version": "2.0.0"
           },
@@ -13180,11 +13171,28 @@
             "target": "Package",
             "version": "2.0.0"
           },
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.AspNetCore.Authentication.Twitter": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0.0",
+            "autoReferenced": true
+          },
           "Microsoft.Extensions.Configuration.UserSecrets": {
             "target": "Package",
             "version": "2.0.0"
           },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+          "Microsoft.AspNetCore.All": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.AspNetCore.Mvc": {
             "target": "Package",
             "version": "2.0.0"
           }

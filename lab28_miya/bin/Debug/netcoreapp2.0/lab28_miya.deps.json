@@ -24,9 +24,11 @@
       "lab28_miya/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.All": "2.0.0",
+          "Microsoft.AspNetCore.Authentication.Facebook": "2.0.0",
           "Microsoft.AspNetCore.Authentication.Twitter": "2.0.0",
           "Microsoft.AspNetCore.Mvc": "2.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.0",
+          "Microsoft.Extensions.Configuration.UserSecrets": "2.0.0",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0"
         },
