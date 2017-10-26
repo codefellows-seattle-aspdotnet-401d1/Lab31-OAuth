@@ -88,6 +88,73 @@ namespace lab28_miya.Controllers
             return View();
         }
 
+        public IActionResult ExternalLogin(string provider, string returnURL = null) 
+        {
+            var redirectURL = Url.Action(nameof(ExternalLoginCallback), "Account", new {returnURL});
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectURL);
+            return Challenge(properties, provider);
+        }
+
+        public async Task<IActionResult> ExternalLoginCallback(string returnURL = null, string remoteError = null) 
+        {
+            if(remoteError != null) 
+            {
+                return RedirectToAction(nameof(LogIn));
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            if(info == null) 
+            {
+                return RedirectToAction(nameof(LogIn));       
+            }
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if(result.Succeeded) 
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if(result.IsLockedOut) 
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else 
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                return View("ExternalLogin", new ExternalLoginModel {email = email});
+            }
+        }
+
+        public Task<IActionResult> ExternalLoginConfirmation(ExternalLoginModel elm) 
+        {
+            if(ModelState.IsValid) 
+            {
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+
+                if(info == null) 
+                {
+                    return RedirectToAction(nameof(LogIn));
+                }
+                
+                var user = new ApplicationUser {UserName = elm.Email, Email = elm.Email};
+
+                if(result.Succeeded) 
+                {
+                    result = await _userManager.AddLoginAsync(user, info);
+
+                    if(result.Succeeded) 
+                    {
+                        await _signInManager.SignInAsync(user, IsPersistent: false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            return View(nameof(ExternalLogin), elm);
+        }
+
         private IActionResult AccessDenied()
         {
             return View("Forbidden");
