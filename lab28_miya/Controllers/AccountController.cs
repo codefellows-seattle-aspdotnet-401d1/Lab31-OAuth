@@ -124,11 +124,11 @@ namespace lab28_miya.Controllers
             {
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
 
-                return View("ExternalLogin", new ExternalLoginModel {email = email});
+                return View("ExternalLogin", new ExternalLoginModel {Email = email});
             }
         }
 
-        public Task<IActionResult> ExternalLoginConfirmation(ExternalLoginModel elm) 
+        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginModel elm) 
         {
             if(ModelState.IsValid) 
             {
@@ -141,13 +141,15 @@ namespace lab28_miya.Controllers
                 
                 var user = new ApplicationUser {UserName = elm.Email, Email = elm.Email};
 
+                var result = await _userManager.CreateAsync(user);
+
                 if(result.Succeeded) 
                 {
                     result = await _userManager.AddLoginAsync(user, info);
 
                     if(result.Succeeded) 
                     {
-                        await _signInManager.SignInAsync(user, IsPersistent: false);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
