@@ -32,6 +32,12 @@ namespace DnDManager
                 options.AddPolicy("Player", policy => policy.RequireRole("Player"));
             });
 
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            });
+
             services.AddSingleton<IAuthorizationHandler, IsDm>();
             services.AddSingleton<IAuthorizationHandler, IsPc>();
 
