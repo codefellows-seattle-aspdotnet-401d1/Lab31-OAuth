@@ -13113,6 +13113,7 @@
       "Microsoft.AspNetCore.Authentication.Twitter >= 2.0.0",
       "Microsoft.AspNetCore.Mvc >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.0",
+      "Microsoft.Extensions.Configuration.UserSecrets >= 2.0.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.0"
     ]
@@ -13123,9 +13124,6 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
       "projectUniqueName": "C:\\Users\\shami\\source\\repos\\Lab31-OAuth\\lab28_miya\\lab28_miya.csproj",
       "projectName": "lab28_miya",
@@ -13161,18 +13159,6 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Tools": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.AspNetCore.Authentication.Twitter": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
           "Microsoft.NETCore.App": {
             "target": "Package",
             "version": "2.0.0",
@@ -13182,7 +13168,23 @@
             "target": "Package",
             "version": "2.0.0"
           },
+          "Microsoft.AspNetCore.Authentication.Twitter": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
           "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.EntityFrameworkCore.Tools": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.Extensions.Configuration.UserSecrets": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "2.0.0"
           }

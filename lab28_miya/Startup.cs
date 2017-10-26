@@ -19,6 +19,8 @@ namespace lab28_miya
 {
     public class Startup
     {
+        string _testSecret = null;
+
         public IConfiguration Configuration
         {
             get;
@@ -32,6 +34,8 @@ namespace lab28_miya
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            _testSecret = Configuration["MySecret"];
+
             //Require https
             services.Configure<MvcOptions>(options =>
             {
@@ -49,6 +53,13 @@ namespace lab28_miya
                 options.AddPolicy("MinimumYearsInService", policy => policy.Requirements.Add(new MinimumYearsInService()));
                 options.AddPolicy("Field Work", policy => policy.RequireRole("CPS Agent"));
                 options.AddPolicy("Skill Set", policy => policy.RequireClaim("StartDate"));
+            }
+            );
+
+            services.AddAuthentication().AddFacebook(facebook =>
+            {
+                facebook.ClientId = Configuration["MyFacebookAppID"];
+                facebook.ClientSecret = Configuration["5c199174958579481067b406ff15c229"];
             }
             );
 
