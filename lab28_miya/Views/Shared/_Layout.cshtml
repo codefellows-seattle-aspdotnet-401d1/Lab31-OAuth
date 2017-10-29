@@ -1,0 +1,31 @@
+﻿@using System.Security.Claims;
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="widthdevice-width" />
+    <title>@ViewBag.Name</title>
+</head>
+
+<body>
+    <div>
+        @if (!User.Identities.Any(u => u.IsAuthenticated))
+        {
+            <span>Hello, Stranger!</span>
+        }
+        else
+        {
+            <span>
+                Hello @User.Identities.First(u => u.IsAuthenticated &&
+                   u.HasClaim(c => c.Type == ClaimTypes.Name)).FindFirst(ClaimTypes.Name).Value
+            </span>
+        }
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+
+</html>
