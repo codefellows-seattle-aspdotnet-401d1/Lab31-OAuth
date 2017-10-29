@@ -31,6 +31,10 @@ namespace lab31_brian.Models
         [DisplayName("Password")]
         [DataType(DataType.Password, ErrorMessage = "Your password doesn't meet our requirements")]
         public string Password { get; set; }
+        [Required]
+        [DisplayName("Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Your passwords do not match")]
         public string ConfirmPassword { get; set; }
     }
 }

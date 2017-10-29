@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using lab31_brian.Models;
+﻿using lab31_brian.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading.Tasks;
 
 namespace lab31_brian.Controllers
 {

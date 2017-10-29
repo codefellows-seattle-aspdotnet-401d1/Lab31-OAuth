@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lab31_brian.Controllers
 {
+    [Authorize]
     public class UserPostsController : Controller
     {
         private readonly UserPostsContext _context;
