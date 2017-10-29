@@ -12,10 +12,10 @@
 
 ### ReadMe
 - Your readme should include the following information:
-	- How long did it take you to complete this assignment?
-	- What did you struggle with? Why? How did you solve?
-	- What did you learn during this assignment?
-    - What resources did you utilize for this assignment?
+	- How long did it take you to complete this assignment? It's an ongoing process. Not quite finished.
+	- What did you struggle with? Why? How did you solve? I struggled with setting up Twitter and Facebook.
+	- What did you learn during this assignment? I learend not to use the Twitter OAuth as it does not accept localhost.
+    - What resources did you utilize for this assignment? The materials provided in class.
     
 
 ### To Submit this Assignment
