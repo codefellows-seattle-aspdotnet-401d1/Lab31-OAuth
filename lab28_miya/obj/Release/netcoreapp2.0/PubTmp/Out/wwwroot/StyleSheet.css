@@ -1,0 +1,12 @@
+﻿body, html {
+    height: 100%;
+    background-color: paleturquoise;
+}
+
+img {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 12em;
+}
