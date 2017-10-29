@@ -16,7 +16,7 @@ namespace lab31_brian.Models
 
 
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { get; set; }
     }

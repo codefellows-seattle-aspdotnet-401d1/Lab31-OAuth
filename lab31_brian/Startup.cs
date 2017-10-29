@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using lab31_brian.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using lab31_brian.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace lab31_brian
 {
@@ -26,6 +30,16 @@ namespace lab31_brian
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddDbContext<UserPostsContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("UserPostsContext")));
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("UserPostsContext")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
