@@ -15,7 +15,7 @@ namespace lab31_brian.Models
         public bool Published { get; set; }
 
 
-
+        [Key]
         public string UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { get; set; }

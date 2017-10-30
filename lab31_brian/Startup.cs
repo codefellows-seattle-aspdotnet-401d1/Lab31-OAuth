@@ -15,6 +15,16 @@ namespace lab31_brian
 {
     public class Startup
     {
+//        public Startup(IHostingEnvironment env)
+//        {
+//            var builder = new ConfigurationBuilder();
+//
+//            if (env.IsDevelopment())
+//            {
+//                builder.AddUserSecrets<Startup>();
+//            }
+//        }
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -58,6 +68,12 @@ namespace lab31_brian
 
                 //Ensuring only 1 account per email
                 options.User.RequireUniqueEmail = true;
+            });
+
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = Configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
         }
 

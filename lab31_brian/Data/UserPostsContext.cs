@@ -13,6 +13,12 @@ namespace lab31_brian.Models
         {
         }
 
-        public DbSet<lab31_brian.Models.UserPost> UserPost { get; set; }
+        public DbSet<UserPost> UserPost { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<UserPost>().HasKey(key => key.ApplicationUser.Id);
+        }
     }
 }
