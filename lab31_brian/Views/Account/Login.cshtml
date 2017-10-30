@@ -1,6 +1,7 @@
 ﻿@using lab31_brian.Models
 @using Microsoft.AspNetCore.Identity
 @model lab31_brian.Models.LoginViewModel
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 
     @{
@@ -9,7 +10,7 @@
 
 <h3>User Login</h3>
 
-<form method="post">
+<form asp-rediret-returnURL="@ViewData["ReturnUrl"]" method="post">
     <div class="validation" asp-validation-summary="All"></div>
     
     <label asp-for="Email"></label>
@@ -43,12 +44,10 @@
         {
             <form asp-action="ExternalLogin" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
                 <div>
-                    <p>
-                        @foreach (var providers in loginProviders)
-                        {
-                            <button type="submit" name="provider" value="@providers.Name" title="Login using your @providers.DisplayName account">@providers.Name</button>
-                        }
-                    </p>
+                  @foreach (var providers in loginProviders)
+                   {
+                       <button type="submit" name="provider" value="@providers.Name" title="Login using your @providers.DisplayName account">@providers.Name</button>
+                   }
                 </div>
             </form>
         }

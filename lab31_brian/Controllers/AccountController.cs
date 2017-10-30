@@ -62,26 +62,31 @@ namespace lab31_brian.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel lvm)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel lvm, string returnUrl)
         {
-            //ViewData["ReturnUrl"] = returnUrl;
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, true);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToLocal(returnUrl);
                 }
             }
             return View();
         }
 
+        [AllowAnonymous]
+        [HttpPost]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -90,6 +95,7 @@ namespace lab31_brian.Controllers
             return Challenge(properties, provider);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             if (remoteError != null)
@@ -120,6 +126,8 @@ namespace lab31_brian.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+        [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginModel elm, string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
