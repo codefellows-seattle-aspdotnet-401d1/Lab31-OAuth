@@ -15,17 +15,17 @@ namespace lab31_brian
 {
     public class Startup
     {
-//        public Startup(IHostingEnvironment env)
-//        {
-//            var builder = new ConfigurationBuilder();
-//
-//            if (env.IsDevelopment())
-//            {
-//                builder.AddUserSecrets<Startup>();
-//            }
-//
-//            Configuration = builder.Build();
-//        }
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder();
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -45,10 +45,10 @@ namespace lab31_brian
             });
 
             services.AddDbContext<UserPostsContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("UserPostsContext")));
+                    options.UseSqlServer(Configuration["UserPostsContext"]));
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("UserPostsContext")));
+                    options.UseSqlServer(Configuration["UserPostsContext"]));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
