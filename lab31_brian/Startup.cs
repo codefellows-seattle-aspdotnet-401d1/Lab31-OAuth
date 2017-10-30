@@ -78,6 +78,12 @@ namespace lab31_brian
                 options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
+            services.AddAuthentication().AddTwitter(options =>
+            {
+                options.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
+                options.ConsumerSecret = Configuration["Authentication: Twitter:ConsumerSecret"];
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
