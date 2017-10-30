@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Slack" Version="1.0.0-rc1-final" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="2.0.0" />
     <PackageReference Include="microsoft.aspnetcore.mvc" Version="2.0.0" />

@@ -1,15 +1,15 @@
-﻿using System;
-using lab31_brian.Data;
+﻿using lab31_brian.Data;
+using lab31_brian.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using lab31_brian.Models;
-using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace lab31_brian
 {
@@ -23,6 +23,8 @@ namespace lab31_brian
 //            {
 //                builder.AddUserSecrets<Startup>();
 //            }
+//
+//            Configuration = builder.Build();
 //        }
 
         public IConfiguration Configuration { get; }
@@ -75,6 +77,7 @@ namespace lab31_brian
                 options.ClientId = Configuration["Authentication:Google:ClientId"];
                 options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +97,7 @@ namespace lab31_brian
             {
                 app.UseDeveloperExceptionPage();
             }
+
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
