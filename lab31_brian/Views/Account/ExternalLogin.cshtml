@@ -1,0 +1,17 @@
+﻿@model lab31_brian.Models.ExternalLoginModel
+
+
+<p>Please finish your registration</p>
+
+
+<div>
+    <form asp-route-redirecturl="@ViewData["ReturnUrl"]" asp-action="ExternalLoginConfirmation" method="post">
+        <div asp-validation-summary="All"></div>
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email"/>
+        <span asp-validation-for="Email"></span>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
