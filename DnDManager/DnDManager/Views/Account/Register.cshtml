@@ -1,0 +1,29 @@
+﻿@model DnDManager.Models.RegisterViewModel
+
+@{ 
+    Layout = "_Layout";
+}
+
+<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+
+    <div asp-validation-summary="All"></div>
+
+    <h4>Create Your Account</h4>
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span> <br />
+
+    <label asp-for="Birthday"></label>
+    <input asp-for="Birthday" />
+    <span asp-validation-for="Birthday"></span> <br />
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span> <br />
+
+    <label asp-for="ConfirmPassword"></label>
+    <input asp-for="ConfirmPassword" />
+    <span asp-validation-for="ConfirmPassword"></span> <br />
+
+    <button type="submit">Register</button>
+</form>
