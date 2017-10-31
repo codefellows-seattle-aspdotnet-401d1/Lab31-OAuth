@@ -78,10 +78,10 @@ namespace lab31_brian
                 options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
-            services.AddAuthentication().AddTwitter(options =>
+            services.AddAuthentication().AddFacebook(options =>
             {
-                options.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
-                options.ConsumerSecret = Configuration["Authentication: Twitter:ConsumerSecret"];
+                options.AppId = Configuration["Authentication:Facebook:AppId"];
+                options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
 
         }
