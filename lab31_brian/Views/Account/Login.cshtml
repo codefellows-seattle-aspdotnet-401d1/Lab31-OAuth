@@ -1,0 +1,55 @@
+﻿@using lab31_brian.Models
+@using Microsoft.AspNetCore.Identity
+@model lab31_brian.Models.LoginViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+    @{
+        Layout = "_SigninStatus";
+    }
+
+<h3>User Login</h3>
+
+<form asp-rediret-returnURL="@ViewData["ReturnUrl"]" method="post">
+    <div class="validation" asp-validation-summary="All"></div>
+    
+    <label asp-for="Email"></label>
+    <input asp-for="Email"/>
+    <span asp-validation-for="Email"></span><br/>
+    
+    <label asp-for="Password"></label>
+    <input asp-for="Password"/>
+    
+    <label asp-for="RememberMe">
+        <input type="checkbox"/>
+        @Html.DisplayNameFor(m => m.RememberMe)
+    </label>
+    
+    <button type="submit">Login</button>
+
+</form>
+
+<div>
+    <h2>Login With Social Medial</h2>
+    
+    @{
+        var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        if (loginProviders.Count == 0)
+        {
+            <div>
+                <p>No external providers avilable</p>
+            </div>
+        }
+        else
+        {
+            <form asp-action="ExternalLogin" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <div>
+                  @foreach (var providers in loginProviders)
+                   {
+                       <button type="submit" name="provider" value="@providers.Name" title="Login using your @providers.DisplayName account">@providers.Name</button>
+                   }
+                </div>
+            </form>
+        }
+    }
+</div>
