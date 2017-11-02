@@ -14,11 +14,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace lab28_miya
 {
     public class Startup
     {
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder();
+            if(env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+            Configuration = builder.Build();
+        }
+
         string _testSecret = null;
 
         public IConfiguration Configuration
@@ -62,7 +73,7 @@ namespace lab28_miya
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
-                facebookOptions.AppId = Configuration["MyFacebookAppID"];
+                facebookOptions.AppId = Configuration["1174020052700232"];
                 facebookOptions.AppSecret = Configuration["5c199174958579481067b406ff15c229"];
             }
             );
@@ -82,6 +93,10 @@ namespace lab28_miya
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseAuthentication();
+
+            //this is used to redirect all http URL requests to https - no http will be allowed to go through
+            var options = new RewriteOptions()
+                .AddRedirectToHttps();
 
             if (env.IsDevelopment())
             {
