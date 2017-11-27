@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @*<-------------------------- bootstrap--------------------------->*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <style>
+        body {         
+            background-color: black;
+        }
+
+        img {
+            margin-top: 200px;
+        }
+
+        .menu h1 {
+            color: darkred;
+        }
+
+        .menu {
+            width: 100%;
+            background-color: white;
+            margin-top: 50px;
+        }
+        .container{
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+   <div class="container">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <img src="~/img/shall-not-pass.gif" />
+            <div class="menu">
+                <h1>ACCESS WAS DENIED!</h1>
+                <p>Please LogIn or Register</p>
+                <a asp-controller="Home" asp-action="Index">Go Back to Home</a>
+            </div>
+         </div>
+    </div>
+</body>
